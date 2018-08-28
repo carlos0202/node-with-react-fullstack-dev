@@ -27,6 +27,18 @@ app.use(passport.session());
 require("./routes/auth")(app);
 //add routing to billing routes
 require("./routes/billing")(app);
+//add request handlers for the react app in production environment
+if(process.env.NODE_ENV === 'production'){
+  // Tell Express to serve production assets required by the react app
+  app.use(express.static('client/build'));
+
+  // Express will serve index.html file whenever he encounters a route
+  // he doesn't recognize
+  const path = require('path');
+  app.get('*', (request, response) => {
+    response.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);

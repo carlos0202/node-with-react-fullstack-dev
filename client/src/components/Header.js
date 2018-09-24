@@ -26,14 +26,13 @@ class Header extends Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <nav>
         <div className="nav-wrapper" style={{ margin: "0 10px" }}>
           <Link to={this.props.auth ? "/surveys" : "/"} className="brand-logo">
             Emaily
           </Link>
-          <ul id="nav-mobile" className="right hide-on-med-and-down">
+          <ul id="nav-mobile" className="right">
             {this.renderContent()}
           </ul>
         </div>

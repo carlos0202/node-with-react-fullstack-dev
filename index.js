@@ -5,9 +5,11 @@ const passport = require("passport");
 const keys = require("./config/keys");
 const bodyParser = require("body-parser");
 require("./models/User");
+require("./models/Survey");
 require("./services/passport");
 
 //connect to mongodb
+mongoose.Promise = global.Promise;
 mongoose.connect(keys.mongoDbURI);
 //express server main object
 const app = express();
@@ -27,6 +29,8 @@ app.use(passport.session());
 require("./routes/auth")(app);
 //add routing to billing routes
 require("./routes/billing")(app);
+//add routing to survyes routes
+require("./routes/survey")(app);
 //add request handlers for the react app in production environment
 if(process.env.NODE_ENV === 'production'){
   // Tell Express to serve production assets required by the react app
